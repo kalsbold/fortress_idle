@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Fortress Idle Game</title>
+    
+</head>
+<body>
+    <p>요새 타이쿤</p>
+    <p>자원</p>
+    <p id="gold"></p>
+    <p id="wood"></p>
+    <p id="stone"></p>
+    <p id="food"></p>
+    <p id="population"></p>
+    
+    <p>생산 버튼</p>
+    <p id="worker"></p>
+    <p id="swordman"></p>
+    <p id="archery"></p>
+    <p id="wizard"></p>
+    <button id = "btn_worker_make" onclick = "make_worker()">make Worker</button>
+    <button id = "btn_swordman_make" onclick = "make_swordman()">make Swordman</button>
+    <button id = "btn_archery_make" onclick = "make_archery()">make Archery</button>
+    <button id = "btn_wizard_make" onclick = "make_wizard()">make Wizard</button>
+    
+    <p>일꾼 배치</p>
+    <p id="gold_worker"></p>
+    <p id="log_worker"></p>
+    <p id="quarry_worker"></p>
+    <p id="farm_worker"></p>
+    <button id = "btn_gold_worker" onclick = "inc_gold_worker()">increase gold worker</button>
+    <button id = "btn_log_worker" onclick = "inc_log_worker()">increase log worker</button>
+    <button id = "btn_quarry_worker" onclick = "inc_quarry_worker()">increase quarry worker</button>
+    <button id = "btn_farm_worker" onclick = "inc_farm_worker()">increase farm worker</button>
+
+    <p>건물 건축 버튼</p>
+    <p id="fortress"></p>
+    <p id="goldmine"></p>
+    <p id="logging"></p>
+    <p id="quarry"></p>
+    <p id="farm"></p>
+    <p id="house"></p>
+    <button id = "btn_fortress_upgrade" onclick = "upgrade_fortress()">upgrade fortress</button>
+    <button id = "btn_goldmine_upgrade" onclick = "upgrade_goldmine()">upgrade goldmine</button>
+    <button id = "btn_logging_upgrade" onclick = "upgrade_logging()">upgrade logging</button>
+    <button id = "btn_quarry_upgrade" onclick = "upgrade_quarry()">upgrade quarry</button>
+    <button id = "btn_farm_upgrade" onclick = "upgrade_farm()">upgrade farm</button>
+    <button id = "btn_house_upgrade" onclick = "upgrade_house()">upgrade house</button>
+
+    <script type="text/javascript" src="js/func.js"></script>
+</body>
+</html>
