@@ -28,7 +28,16 @@ DB 저장및 원하는 내용 읽어오기.
 하위 내용부분만 수정하는 방식으로.
  */
 //firebase 부분..
-
+// Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDTy5S1J5w9uTm260luFiUtG-yFsGiPKiQ",
+    authDomain: "fortress-idle-game.firebaseapp.com",
+    databaseURL: "https://fortress-idle-game.firebaseio.com",
+    projectId: "fortress-idle-game",
+    storageBucket: "fortress-idle-game.appspot.com",
+    messagingSenderId: "18650541516"
+  };
+  firebase.initializeApp(config);
 
 console.log('RxJS included?',!!Rx);
 
