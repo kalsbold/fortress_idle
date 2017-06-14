@@ -24,19 +24,17 @@ DB 저장및 원하는 내용 읽어오기.
 .
 .
 .
-
 상단 메뉴 고정. 
 하위 내용부분만 수정하는 방식으로.
  */
+//firebase 부분..
+
+
 console.log('RxJS included?',!!Rx);
 
 //RxJS를 쓰기위한 변수들
-//div 별로 변수 구분해둘것임.
-//create div의 버튼들.
-//DOM에서 요소들을 받아와 Observable로 생성함.
-//증가 버튼들임.
+
 //유닛 생성버튼.
-var Create_Div = document.getElementById('create');
 let Make_Worker_Btn = document.querySelector('.btn_worker_make');
 let Make_Swordman_Btn = document.querySelector('.btn_swordman_make');
 let Make_Archery_Btn = document.querySelector('.btn_archery_make');
@@ -190,10 +188,10 @@ function upgrade_fortress(){ //각 10000 * 레벨. 자원 생산 단위 1.5배
     if(gold>= (10000*fortress) && wood>= (10000*fortress) && stone>= (10000*fortress) && food >= (10000*fortress)){
         decreaseResource(10000,10000,10000,10000,fortress);
         fortress += 1;
-        gold_inc = gold_inc*1.5;
-        wood_inc = wood_inc*1.5;
-        stone_inc = stone_inc*1.5;
-        food_inc = food_inc*1.5;
+        gold_inc += gold_inc*1.5;
+        wood_inc += wood_inc*1.5;
+        stone_inc += stone_inc*1.5;
+        food_inc += food_inc*1.5;
         population_inc = population_inc*1.5;
         console.log("push u_f");
     }
@@ -203,7 +201,7 @@ function upgrade_goldmine(){ //50, 100, 250, 100
     if(gold > (50*goldmine) && wood > (100*goldmine) && stone > (250*goldmine) && food > (100*goldmine)){
         decreaseResource(50,100,250,100,goldmine);
         goldmine += 1;
-        gold_inc = gold_inc*1.1;
+        gold_inc += gold_inc*1.1;
         console.log("push u_g");
     }
 };
@@ -212,7 +210,7 @@ function upgrade_logging(){ //50, 100, 250, 100
     if(gold > (50*logging) && wood > (100*logging) && stone > (250*logging) && food > (100*logging)){
         decreaseResource(50,100,250,100,logging);
         logging += 1;
-        wood_inc = wood_inc*1.1;
+        wood_inc += wood_inc*1.1;
         console.log("push u_l");
     }
 };
@@ -221,7 +219,7 @@ function upgrade_quarry(){ //50, 100, 250, 100
     if(gold > (50*quarry) && wood > (100*quarry) && stone > (250*quarry) && food > (100*quarry)){
         decreaseResource(50,100,250,100,quarry);
         quarry += 1;
-        stone_inc = stone_inc*1.1;
+        stone_inc += stone_inc*1.1;
         console.log("push u_q");
     }
 };
@@ -230,7 +228,7 @@ function upgrade_farm(){ //50, 100, 500, 100
    if(gold > (50*farm) && wood > (100*farm) && stone > (500*farm) && food > (100*farm)){
         decreaseResource(50,100,500,100,farm);
         farm += 1;
-        food_inc = food_inc*1.1;
+        food_inc += food_inc*1.1;
         console.log("push u_f");
     }
 };
@@ -239,7 +237,7 @@ function upgrade_house(){ //100, 250, 250, 100
     if(gold > (50*house) && wood > (250*house) && stone > (250*house) && food > (100*house)){
         decreaseResource(100,250,250,100,house);
         house += 1;
-        population_inc = population_inc*1.1;
+        population_inc += population_inc*1.1;
         check_population();
         console.log("push u_h");
     }
@@ -348,28 +346,48 @@ function inc_farm_worker(){
     }
 };
 
+
+
 //각종 내용 표시. 저장은 소수점 전부. 표기는 소수점 반올림해서.
 function updatePages(){  
-document.getElementById("worker").innerHTML = surplus_worker +"/" + worker;
-document.getElementById("swordman").innerHTML = swordman;
-document.getElementById("archery").innerHTML = archery;
-document.getElementById("wizard").innerHTML = wizard;
+document.querySelector(".worker").innerText = surplus_worker +"/" + worker;
+document.querySelector(".swordman").innerText = swordman;
+document.querySelector(".archery").innerText = archery;
+document.querySelector(".wizard").innerText = wizard;
 
-document.getElementById("gold").innerHTML = Math.round(gold);
-document.getElementById("wood").innerHTML = Math.round(wood);
-document.getElementById("stone").innerHTML = Math.round(stone);
-document.getElementById("food").innerHTML = Math.round(food);
-document.getElementById("population").innerHTML = Math.round(population) + "/" + Math.round(max_pop);
+document.querySelector(".Wo_price").innerText = 50*worker + " , " + 100*worker + " , " + 100*worker + " , " + 100*worker;
+document.querySelector(".S_price").innerText = 150*swordman + " , " + 100*swordman + " , " + 100*swordman + " , " + 100*swordman;
+document.querySelector(".A_price").innerText = 100*archery + " , " + 150*archery + " , " + 100*archery + " , " + 100*archery;
+document.querySelector(".Wi_price").innerText = 200*wizard + " , " + 100*wizard + " , " + 100*wizard + " , " + 100*wizard;
 
-document.getElementById("gold_worker").innerHTML = gold_worker;
-document.getElementById("log_worker").innerHTML = log_worker;
-document.getElementById("quarry_worker").innerHTML = quarry_worker;
-document.getElementById("farm_worker").innerHTML = farm_worker;
+document.querySelector(".gold").innerText = Math.round(gold);
+document.querySelector(".wood").innerText = Math.round(wood);
+document.querySelector(".stone").innerText = Math.round(stone);
+document.querySelector(".food").innerText = Math.round(food);
+document.querySelector(".population").innerText = Math.round(population) + "/" + Math.round(max_pop);
 
-document.getElementById("fortress").innerHTML = fortress;
-document.getElementById("goldmine").innerHTML = goldmine;
-document.getElementById("logging").innerHTML = logging;
-document.getElementById("quarry").innerHTML = quarry;
-document.getElementById("farm").innerHTML = farm;
-document.getElementById("house").innerHTML = house;
+document.querySelector(".G_inc").innerText = gold_inc;
+document.querySelector(".W_inc").innerText = wood_inc;
+document.querySelector(".S_inc").innerText = stone_inc;
+document.querySelector(".F_inc").innerText = food_inc;
+document.querySelector(".P_inc").innerText = population_inc;
+
+document.querySelector(".gold_worker").innerText = gold_worker;
+document.querySelector(".log_worker").innerText = log_worker;
+document.querySelector(".quarry_worker").innerText = quarry_worker;
+document.querySelector(".farm_worker").innerText = farm_worker;
+
+document.querySelector(".fortress").innerText = fortress;
+document.querySelector(".goldmine").innerText = goldmine;
+document.querySelector(".logging").innerText = logging;
+document.querySelector(".quarry").innerText = quarry;
+document.querySelector(".farm").innerText = farm;
+document.querySelector(".house").innerText = house;
+
+document.querySelector(".Fo_price").innerText = 10000*fortress + " , " + 10000*fortress + " , " + 10000*fortress + " , " + 10000*fortress;
+document.querySelector(".G_price").innerText = 50*goldmine + " , " + 100*goldmine + " , " + 250*goldmine + " , " + 100*goldmine;
+document.querySelector(".L_price").innerText = 50*logging + " , " + 100*logging + " , " + 250*logging + " , " + 100*logging;
+document.querySelector(".Q_price").innerText = 50*quarry + " , " + 100*quarry + " , " + 250*quarry + " , " + 100*quarry;
+document.querySelector(".Fa_price").innerText = 50*farm + " , " + 100*farm + " , " + 500*farm + " , " + 100*farm;
+document.querySelector(".H_price").innerText = 100*house + " , " + 250*house + " , " + 250*house + " , " + 100*house;
 };

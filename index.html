@@ -5,18 +5,13 @@
     <title>Fortress Idle Game</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/4.1.0/rx.all.js"></script>
-    <style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;}
-.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-.tg .tg-yw4l{text-align:center;vertical-align:top}
-</style>
+    <link rel="stylesheet" type="text/css" href = "css/style.css"></style>
 
 </head>
 <body>
 <!--Firebase 적용할 것.-->
-    <h1>요새 타이쿤</h1>
-    <div id="resource">
+    <h1>Fortress Idle Game</h1>
+    <div class="resource">
         <table class="tg">
             <tr>
                 <th class="tg-yw4l">자원</th>
@@ -28,17 +23,25 @@
             </tr>
             <tr>
                 <td class="tg-yw4l">여분</td>
-                <td class="tg-yw4l"><p id="gold"></p></td>
-                <td class="tg-yw4l"><p id="wood"></p></td>
-                <td class="tg-yw4l"><p id="stone"></p></td>
-                <td class="tg-yw4l"><p id="food"></p></td>
-                <td class="tg-yw4l"><p id="population"></p></td>
+                <td class="tg-yw4l"><p class="gold"></p></td>
+                <td class="tg-yw4l"><p class="wood"></p></td>
+                <td class="tg-yw4l"><p class="stone"></p></td>
+                <td class="tg-yw4l"><p class="food"></p></td>
+                <td class="tg-yw4l"><p class="population"></p></td>
+            </tr>
+            <tr>
+                <td class="tg-yw4l">증가량</td>
+                <td class="tg-yw4l"><p class = "G_inc"></p></td>
+                <td class="tg-yw4l"><p class = "W_inc"></p></td>
+                <td class="tg-yw4l"><p class = "S_inc"></p></td>
+                <td class="tg-yw4l"><p class = "F_inc"></p></td>
+                <td class="tg-yw4l"><p class = "P_inc"></p></td>
             </tr>
         </table>
         
     </div>
     <br><br>
-    <div id = "create">
+    <div class = "create">
        <table class="tg">
             <tr>
                 <th class="tg-yw4l">클래스</th>
@@ -49,10 +52,10 @@
             </tr>
             <tr>
                 <td class="tg-yw4l">인원</td>
-                <td class="tg-yw4l"><p id="worker"></p></td>
-                <td class="tg-yw4l"><p id="swordman"></p></td>
-                <td class="tg-yw4l"><p id="archery"></p></td>
-                <td class="tg-yw4l"><p id="wizard"></p></td>
+                <td class="tg-yw4l"><p class="worker"></p></td>
+                <td class="tg-yw4l"><p class="swordman"></p></td>
+                <td class="tg-yw4l"><p class="archery"></p></td>
+                <td class="tg-yw4l"><p class="wizard"></p></td>
             </tr>
             <tr>
                 <td class="tg-yw4l">생산</td>
@@ -61,10 +64,17 @@
                 <td class="tg-yw4l"><button class = "btn_archery_make">make Archery</button></td>
                 <td class="tg-yw4l"><button class = "btn_wizard_make">make Wizard</button></td>
             </tr>
+            <tr>
+                <td class="tg-yw4l">가격</td>
+                <td class="tg-yw4l"><p class = "Wo_price"></p></td>
+                <td class="tg-yw4l"><p class = "S_price"></p></td>
+                <td class="tg-yw4l"><p class = "A_price"></p></td>
+                <td class="tg-yw4l"><p class = "Wi_price"></p></td>
+            </tr>
         </table>
     </div>
     <br><br>
-    <div id = "work_place">
+    <div class = "work_place">
         <table class="tg">
             <tr>
                 <th class="tg-yw4l">작업장</th>
@@ -75,10 +85,10 @@
             </tr>
             <tr>
                 <td class="tg-yw4l">인원</td>
-                <td class="tg-yw4l"><p id="gold_worker"></p></td>
-                <td class="tg-yw4l"><p id="log_worker"></p></td>
-                <td class="tg-yw4l"><p id="quarry_worker"></p></td>
-                <td class="tg-yw4l"><p id="farm_worker"></p></td>
+                <td class="tg-yw4l"><p class="gold_worker"></p></td>
+                <td class="tg-yw4l"><p class="log_worker"></p></td>
+                <td class="tg-yw4l"><p class="quarry_worker"></p></td>
+                <td class="tg-yw4l"><p class="farm_worker"></p></td>
             </tr>
             <tr>
                 <td class="tg-yw4l">일꾼 배치</td>
@@ -90,7 +100,7 @@
         </table> 
     </div>
     <br><br>
-    <div id = "building_make">
+    <div class = "building_make">
         <table class="tg">
             <tr>
                 <th class="tg-yw4l">건물</th>
@@ -103,12 +113,12 @@
             </tr>
             <tr>
                 <td class="tg-yw4l">건축수</td>
-                <td class="tg-yw4l"><p id="fortress"></p></td>
-                <td class="tg-yw4l"><p id="goldmine"></p></td>
-                <td class="tg-yw4l"><p id="logging"></p></td>
-                <td class="tg-yw4l"><p id="quarry"></p></td>
-                <td class="tg-yw4l"><p id="farm"></p></td>
-                <td class="tg-yw4l"><p id="house"></p></td>
+                <td class="tg-yw4l"><p class="fortress"></p></td>
+                <td class="tg-yw4l"><p class="goldmine"></p></td>
+                <td class="tg-yw4l"><p class="logging"></p></td>
+                <td class="tg-yw4l"><p class="quarry"></p></td>
+                <td class="tg-yw4l"><p class="farm"></p></td>
+                <td class="tg-yw4l"><p class="house"></p></td>
             </tr>
             <tr>
                 <td class="tg-yw4l">건축</td>
@@ -119,9 +129,25 @@
                 <td class="tg-yw4l"><button class = "btn_farm_upgrade">upgrade farm</button></td>
                 <td class="tg-yw4l"><button class = "btn_house_upgrade">upgrade house</button></td>
             </tr>
+            <tr>
+                <td class="tg-yw4l">가격</td>
+                <td class="tg-yw4l"><p class = "Fo_price"></p></td>
+                <td class="tg-yw4l"><p class = "G_price"></p></td>
+                <td class="tg-yw4l"><p class = "L_price"></p></td>
+                <td class="tg-yw4l"><p class = "Q_price"></p></td>
+                <td class="tg-yw4l"><p class = "Fa_price"></p></td>
+                <td class="tg-yw4l"><p class = "H_price"></p></td>
+            </tr>
         </table>
     </div>
 
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+
+    <!--firebase web app add-->
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
     <script type="text/javascript" src="js/func.js"></script>
 </body>
 </html>
