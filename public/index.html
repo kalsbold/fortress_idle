@@ -1,17 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang = "ko">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Fortress Idle Game</title>
-    
     <link rel="stylesheet" type="text/css" href = "css/style.css"></style>
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <!-- SyntaxHighlighter 포함 -->
+    <link href="css/shCore.css" rel="stylesheet" type="text/css" />
+    <link href="css/shThemeDefault.css" rel="stylesheet" type="text/css" />
+    <style> #CONTENTS{ min-height: 1000px;}</style>
 </head>
 <body>
 <!--Firebase 적용할 것.-->
+    <nav class="indigo">
+        <div class="nav-wrapper">
+            <div class="container">
+                <a href = "/" class = "breadcrumb">Fortress Idle Game</a>
+                
+            </div>
+            
+        </div>
+    </nav>
 <!--회원 가입, 로그인, 로그아웃, 탈퇴-->
-    <h1>Fortress Idle Game</h1>
-    <div class="resource">
+    
+    <div class = "container" id = "CONTENTS">
+        <br>
+        <div class="card">
+            <div class="card-content">
+        로그인 상태 : 
+        <span id ="AUTH_STATE" class = "blue-text"></span>
+            </div>
+            <div class "card-action">
+                <button class = "btn indigo login">Login</button>
+                <button class = "btn indigo logout">Logout</button>
+                <button class = "btn indigo signin">Sign in</button>
+                <button class = "btn indigo signout">Sign out</button>
+                <br><br>
+            </div>
+        </div>
+        <div class="resource">
         <table class="tg">
             <tr>
                 <th class="tg-yw4l">자원</th>
@@ -39,10 +68,10 @@
             </tr>
         </table>
         
-    </div>
-    <br><br>
-    <div class = "create">
-       <table class="tg">
+        </div>
+        <br><br>
+        <div class = "create">
+        <table class="tg">
             <tr>
                 <th class="tg-yw4l">클래스</th>
                 <th class="tg-yw4l">일꾼</th>
@@ -59,10 +88,10 @@
             </tr>
             <tr>
                 <td class="tg-yw4l">생산</td>
-                <td class="tg-yw4l"><button class = "btn_worker_make">make Worker</button></td>
-                <td class="tg-yw4l"><button class = "btn_swordman_make">make Swordman</button></td>
-                <td class="tg-yw4l"><button class = "btn_archery_make">make Archery</button></td>
-                <td class="tg-yw4l"><button class = "btn_wizard_make">make Wizard</button></td>
+                <td class="tg-yw4l"><button class = "btn indigo btn_worker_make">make</button></td>
+                <td class="tg-yw4l"><button class = "btn indigo btn_swordman_make">make</button></td>
+                <td class="tg-yw4l"><button class = "btn indigo btn_archery_make">make</button></td>
+                <td class="tg-yw4l"><button class = "btn indigo btn_wizard_make">make</button></td>
             </tr>
             <tr>
                 <td class="tg-yw4l">가격</td>
@@ -72,9 +101,9 @@
                 <td class="tg-yw4l"><p class = "Wi_price"></p></td>
             </tr>
         </table>
-    </div>
-    <br><br>
-    <div class = "work_place">
+        </div>
+        <br><br>
+        <div class = "work_place">
         <table class="tg">
             <tr>
                 <th class="tg-yw4l">작업장</th>
@@ -92,15 +121,15 @@
             </tr>
             <tr>
                 <td class="tg-yw4l">일꾼 배치</td>
-                <td class="tg-yw4l"><button class = "btn_gold_worker">increase gold worker</button></td>
-                <td class="tg-yw4l"><button class = "btn_log_worker">increase log worker</button></td>
-                <td class="tg-yw4l"><button class = "btn_quarry_worker">increase quarry worker</button></td>
-                <td class="tg-yw4l"><button class = "btn_farm_worker">increase farm worker</button></td>
+                <td class="tg-yw4l"><button class = "btn indigo btn_gold_worker">increase</button></td>
+                <td class="tg-yw4l"><button class = "btn indigo btn_log_worker">increase</button></td>
+                <td class="tg-yw4l"><button class = "btn indigo btn_quarry_worker">increase</button></td>
+                <td class="tg-yw4l"><button class = "btn indigo btn_farm_worker">increase</button></td>
             </tr>
         </table> 
-    </div>
-    <br><br>
-    <div class = "building_make">
+        </div>
+        <br><br>
+        <div class = "building_make">
         <table class="tg">
             <tr>
                 <th class="tg-yw4l">건물</th>
@@ -122,12 +151,12 @@
             </tr>
             <tr>
                 <td class="tg-yw4l">건축</td>
-                <td class="tg-yw4l"><button class = "btn_fortress_upgrade">upgrade fortress</button></td>
-                <td class="tg-yw4l"><button class = "btn_goldmine_upgrade">upgrade goldmine</button></td>
-                <td class="tg-yw4l"><button class = "btn_logging_upgrade">upgrade logging</button></td>
-                <td class="tg-yw4l"><button class = "btn_quarry_upgrade">upgrade quarry</button></td>
-                <td class="tg-yw4l"><button class = "btn_farm_upgrade">upgrade farm</button></td>
-                <td class="tg-yw4l"><button class = "btn_house_upgrade">upgrade house</button></td>
+                <td class="tg-yw4l"><button class = "btn indigo btn_fortress_upgrade">upgrade</button></td>
+                <td class="tg-yw4l"><button class = "btn indigo btn_goldmine_upgrade">upgrade</button></td>
+                <td class="tg-yw4l"><button class = "btn indigo btn_logging_upgrade">upgrade</button></td>
+                <td class="tg-yw4l"><button class = "btn indigo btn_quarry_upgrade">upgrade</button></td>
+                <td class="tg-yw4l"><button class = "btn indigo btn_farm_upgrade">upgrade</button></td>
+                <td class="tg-yw4l"><button class = "btn indigo btn_house_upgrade">upgrade</button></td>
             </tr>
             <tr>
                 <td class="tg-yw4l">가격</td>
@@ -138,7 +167,8 @@
                 <td class="tg-yw4l"><p class = "Fa_price"></p></td>
                 <td class="tg-yw4l"><p class = "H_price"></p></td>
             </tr>
-        </table>
+            </table>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.js"></script>
@@ -150,6 +180,9 @@
 
     <!--firebase web app add-->
     <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-database.js"></script>
     <script type="text/javascript" src="js/func.js"></script>
 </body>
 </html>

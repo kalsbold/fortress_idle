@@ -21,7 +21,7 @@ DB 저장및 원하는 내용 읽어오기.
 |      a        | |                                   |
 .
 .
-.
+.https://www.slideshare.net/sungbeenjang/firebase-for-web-2-authentication
 .
 .
 상단 메뉴 고정. 
