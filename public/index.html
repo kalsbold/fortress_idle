@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Fortress Idle Game</title>
     <link rel="stylesheet" type="text/css" href = "css/style.css"></style>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,500" rel="stylesheet"> 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
     <!-- SyntaxHighlighter 포함 -->
@@ -28,15 +31,12 @@
     <div class = "container" id = "CONTENTS">
         <br>
         <div class="card">
-            <div class="card-content">
-        로그인 상태 : 
-        <span id ="AUTH_STATE" class = "blue-text"></span>
-            </div>
+            <br>
             <div class "card-action">
                 <button class = "btn indigo login">Login</button>
-                <button class = "btn indigo logout">Logout</button>
-                <button class = "btn indigo signin">Sign in</button>
-                <button class = "btn indigo signout">Sign out</button>
+                <button class = "btn indigo logout hide">Logout</button>
+                <button class = "btn indigo save">Save</button>
+                <button class = "btn indigo load">Load</button>
                 <br><br>
             </div>
         </div>
@@ -183,6 +183,7 @@
     <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-database.js"></script>
+    <script type="text/javascript" src="js/firebase-init.js"></script>
     <script type="text/javascript" src="js/func.js"></script>
 </body>
 </html>

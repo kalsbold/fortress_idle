@@ -6,11 +6,11 @@
 건물 업그레이드.
 생성과 업그레이드에 따른 수치변화 적용.
 RXjs 적용 완료
-
+Firebase 와 연동
+DB 저장
 
 to do list
-Firebase 와 연동
-DB 저장및 원하는 내용 읽어오기.
+DB 원하는 내용 읽어오기.
 원정 시스템 추가.
 전투직군 스텟및 확인창 추가.
 각종 화면 구성 추가 : 
@@ -27,19 +27,217 @@ DB 저장및 원하는 내용 읽어오기.
 상단 메뉴 고정. 
 하위 내용부분만 수정하는 방식으로.
  */
-//firebase 부분..
-// Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyDTy5S1J5w9uTm260luFiUtG-yFsGiPKiQ",
-    authDomain: "fortress-idle-game.firebaseapp.com",
-    databaseURL: "https://fortress-idle-game.firebaseio.com",
-    projectId: "fortress-idle-game",
-    storageBucket: "fortress-idle-game.appspot.com",
-    messagingSenderId: "18650541516"
-  };
-  firebase.initializeApp(config);
+//firebase 
+//계정관련 버튼.
+let btn_login = document.querySelector('.login');
+let btn_logout = document.querySelector('.logout');
+let btn_save = document.querySelector('.save');
+let btn_load = document.querySelector('.load');
 
-console.log('RxJS included?',!!Rx);
+var btn_login_Stream = Rx.Observable.fromEvent(btn_login, 'click');
+var btn_logout_Stream = Rx.Observable.fromEvent(btn_logout, 'click');
+var btn_save_Stream = Rx.Observable.fromEvent(btn_save, 'click');
+var btn_load_Stream = Rx.Observable.fromEvent(btn_load, 'click');
+
+
+var userInfo;
+var auth;
+auth = firebase.auth();
+
+var authProvider;
+
+//로그인버튼.
+btn_login_Stream.subscribe(e => {
+    console.log("push google button");
+    authProvider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(authProvider);
+});
+//로그아웃 버튼.
+btn_logout_Stream.subscribe(e => {
+    console.log("push logout");
+    auth.signOut();
+});
+
+//인증 상태 확인.
+auth.onAuthStateChanged(function(firebaseUser) {
+  if(firebaseUser){
+    console.log(firebaseUser);
+    userInfo = firebaseUser;
+    btn_logout.classList.remove('hide');
+    btn_login.classList.add('hide');
+    load_on_DB();
+  }else{
+    console.log("not logged in");
+    btn_logout.classList.add('hide');
+    btn_login.classList.remove('hide');
+  }
+});
+
+btn_save_Stream.subscribe(e=>{
+    console.log("push save button");
+    save_on_DB();
+});
+
+btn_load_Stream.subscribe(e=>{
+    console.log("push load button");
+    load_on_DB();
+});
+
+//Unit 수.
+var worker = 8;     //일꾼
+var swordman = 0;   //검사
+var archery = 0;    //궁사
+var wizard = 0;     //마법사
+var surplus_worker = 0;  //잉여 일꾼
+
+//resource
+var gold = 1000;       //금
+var wood = 1000;       //목재
+var stone = 1000;      //석재
+var food = 1000;       //식량
+var population = 8; //인구
+var max_pop = 10;
+
+//building 수
+var fortress = 1; //요새 레벨.
+var goldmine = 1; //금광
+var logging = 1;  //벌목장
+var quarry = 1;   //채석장
+var farm = 1;     //농장
+var house = 1;    //집
+
+//일꾼 배치.
+var gold_worker = 0;
+var log_worker = 0;
+var quarry_worker = 0;
+var farm_worker = 0;
+
+//resource initial increase
+var gold_inc = 10;       //금
+var wood_inc = 10;       //목재
+var stone_inc = 10;      //석재
+var food_inc = 10;       //식량
+var population_inc = 10; //인구
+
+//데이터베이스 접근용 객체
+var database;
+//데이터베이스 접근을 위한 코드
+database = firebase.database();
+
+function getTimeStamp() {
+  var d = new Date();
+  var s =
+    leadingZeros(d.getFullYear(), 4) + '-' +
+    leadingZeros(d.getMonth() + 1, 2) + '-' +
+    leadingZeros(d.getDate(), 2) + ' ' +
+
+    leadingZeros(d.getHours(), 2) + ':' +
+    leadingZeros(d.getMinutes(), 2) + ':' +
+    leadingZeros(d.getSeconds(), 2);
+
+  return s;
+};
+
+function leadingZeros(n, digits) {
+  var zero = '';
+  n = n.toString();
+
+  if (n.length < digits) {
+    for (i = 0; i < digits - n.length; i++)
+      zero += '0';
+  }
+  return zero + n;
+};
+
+
+
+function save_on_DB(){
+    console.log("save DB");
+//UID 로 구분.
+//현재 자원, 유닛, 배치, 건물 업글, 저장 시간
+var userRef = database.ref('User/' + userInfo.uid);
+var incRef = database.ref('increase/'+userInfo.uid);
+var buildingRef = database.ref('building/'+userInfo.uid);
+var unitRef = database.ref('unit/'+userInfo.uid);
+userRef.update({
+    gold : gold,
+    wood : wood,
+    stone : stone,
+    food : food,
+    Population : population,
+    Maxpop : max_pop,
+    
+    Update_date : getTimeStamp()
+});
+incRef.update({
+    goldinc : gold_inc,
+    woodinc : wood_inc,
+    stoneinc : stone_inc,
+    foodinc : food_inc,
+    popinc : population_inc
+});
+buildingRef.update({
+    fortress : fortress,
+    goldmine : goldmine,
+    logging : logging,
+    quarry : quarry,
+    farm : farm,
+    house : house
+});
+unitRef.update({
+    worker : worker,
+    swordman : swordman,
+    archery : archery,
+    wizard : wizard,
+    surplusworker : surplus_worker,
+    goldworker : gold_worker,
+    logworker : log_worker,
+    quarryworker : quarry_worker,
+    farmworker : farm_worker
+});
+};
+function load_on_DB(){
+if(userInfo){
+    console.log("login user");
+    var userRef = database.ref('User/' + userInfo.uid).once('value').then(function(snapshot){
+        gold = snapshot.val().gold;
+        wood = snapshot.val().wood;
+        stone = snapshot.val().stone;
+        food = snapshot.val().food;
+        population = snapshot.val().Population;
+        max_pop = snapshot.val().Maxpop;
+    });
+    var incRef = database.ref('increase/'+userInfo.uid).once('value').then(function(snapshot){
+        gold_inc = snapshot.val().goldinc;
+        wood_inc = snapshot.val().woodinc;
+        stone_inc = snapshot.val().stoneinc;
+        food_inc = snapshot.val().foodinc;
+        population_inc = snapshot.val().popinc;
+    });
+    var buildingRef = database.ref('building/'+userInfo.uid).once('value').then(function(snapshot){
+        fortress = snapshot.val().fortress;
+        goldmine = snapshot.val().goldmine;
+        logging = snapshot.val().logging;
+        quarry = snapshot.val().quarry;
+        farm = snapshot.val().farm;
+        house = snapshot.val().house;
+    });
+    var unitRef = database.ref('unit/'+userInfo.uid).once('value').then(function(snapshot){
+        worker = snapshot.val().worker;
+        swordman = snapshot.val().swordman;
+        archery = snapshot.val().archery;
+        wizard = snapshot.val().wizard;
+        surplus_worker = snapshot.val().surplusworker;
+        gold_worker = snapshot.val().goldworker;
+        log_worker = snapshot.val().logworker;
+        quarry_worker = snapshot.val().quarryworker;
+        farm_worker = snapshot.val().farmworker;
+    });
+}else{
+    console.log("login first!!!");
+}
+};
+
 
 //RxJS를 쓰기위한 변수들
 
@@ -151,46 +349,13 @@ increaseResource();
 updatePages();
 });
 
+const Auto_Save_Stream = interv.sample(Rx.Observable.interval(300000));
 
-//Unit 수.
-var worker = 8;     //일꾼
-var swordman = 0;   //검사
-var archery = 0;    //궁사
-var wizard = 0;     //마법사
-var surplus_worker = 0;  //잉여 일꾼
+const Auto_Save = Auto_Save_Stream.subscribe(val => {
+    console.log("Auto save");
+    save_on_DB();
+});
 
-//resource
-var gold = 1000;       //금
-var wood = 1000;       //목재
-var stone = 1000;      //석재
-var food = 1000;       //식량
-var population = 8; //인구
-var max_pop = 10;
-
-//building 수
-var fortress = 1; //요새 레벨.
-var goldmine = 1; //금광
-var logging = 1;  //벌목장
-var quarry = 1;   //채석장
-var farm = 1;     //농장
-var house = 1;    //집
-
-//일꾼 배치.
-var gold_worker = 0;
-var log_worker = 0;
-var quarry_worker = 0;
-var farm_worker = 0;
-
-//resource initial increase
-var gold_inc = 10;       //금
-var wood_inc = 10;       //목재
-var stone_inc = 10;      //석재
-var food_inc = 10;       //식량
-var population_inc = 10; //인구
-
-//fortress stat
-var melee = 0;  //공격
-var defense = 0; //방어
 
 //건물 증가함수. //금 + 석재 + 나무 + 식량 필요
 function upgrade_fortress(){ //각 10000 * 레벨. 자원 생산 단위 1.5배
