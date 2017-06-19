@@ -7,13 +7,18 @@
 생성과 업그레이드에 따른 수치변화 적용.
 RXjs 적용 완료
 Firebase 와 연동
-DB 저장
+DB 저장 & 원하는 내용 읽어오기.
+자동저장 및 저장, 불러오기 완료.
+
 
 to do list
-DB 원하는 내용 읽어오기.
-원정 시스템 추가.
+로그아웃시 전체 창 초기화.
+로그인 종류 늘리기(facebook, email)
+원정 시스템 추가.(전투시스템.)
+DB에 몬스터용 기본 정보 저장.
 전투직군 스텟및 확인창 추가.
 각종 화면 구성 추가 : 
+
 
 |  홈  |  유닛  |  건물  |  연구  |  원정  |  설정창  |
 
@@ -27,6 +32,8 @@ DB 원하는 내용 읽어오기.
 상단 메뉴 고정. 
 하위 내용부분만 수정하는 방식으로.
  */
+
+
 //firebase 
 //계정관련 버튼.
 let btn_login = document.querySelector('.login');
@@ -124,6 +131,7 @@ var database;
 //데이터베이스 접근을 위한 코드
 database = firebase.database();
 
+//시간용 함수.
 function getTimeStamp() {
   var d = new Date();
   var s =
@@ -150,7 +158,7 @@ function leadingZeros(n, digits) {
 };
 
 
-
+//저장.
 function save_on_DB(){
     console.log("save DB");
 //UID 로 구분.
@@ -166,7 +174,6 @@ userRef.update({
     food : food,
     Population : population,
     Maxpop : max_pop,
-    
     Update_date : getTimeStamp()
 });
 incRef.update({
